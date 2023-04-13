@@ -7,24 +7,25 @@ stage.warnings = {
 
 local function noop_callback() end
 
-local function dump(o, level)
-   if not level then level = 0 end
-   if type(o) == 'table' then
-      local s = '{ '
-      for k,v in pairs(o) do
-         if type(k) ~= 'number' then k = '"'..k..'"' end
-         local val
-         if level < 5 then
-            val = dump(v, level + 1)
-         else
-            val = tostring(v)
-         end
-         s = s .. '['..k..'] = ' .. val .. ','
-      end
-      return s .. '} '
-   else
-      return tostring(o)
-   end
+local function dump(t, indent, done)
+    done = done or {}
+    indent = indent or 0
+
+    done[t] = true
+
+    for key, value in pairs(t) do
+        print(string.rep("\t", indent))
+
+        if type(value) == "table" and not done[value] then
+            done[value] = true
+            print(key, ":\n")
+
+            dump(value, indent + 2, done)
+            done[value] = nil
+        else
+            print(key, "\t=\t", value, "\n")
+        end
+    end
 end
 
 
