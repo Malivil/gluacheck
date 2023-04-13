@@ -83,7 +83,6 @@ function Line:walk(visited, index, callback, ...)
    end
 
    if not item then
-   print("item not found!", index)
       return
    elseif item.tag == "Jump" then
       return self:walk(visited, item.to, callback, ...)
