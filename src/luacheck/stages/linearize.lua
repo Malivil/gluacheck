@@ -452,6 +452,7 @@ function LinState:emit_stmt_If(node)
       self:emit_block(node[i + 1])
       self:emit_goto("end")
       self:register_label("else")
+      self:register_label("continue")
       self:leave_scope()
    end
 
