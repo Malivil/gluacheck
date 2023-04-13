@@ -471,6 +471,10 @@ function LinState:emit_stmt_Break(node)
    self:emit_goto("break", false, node)
 end
 
+function LinState:emit_stmt_Continue(node)
+   self:emit_goto("continue", false, node)
+end
+
 function LinState:emit_stmt_Return(node)
    self:emit_noop(node)
    self:emit_exprs(node)
