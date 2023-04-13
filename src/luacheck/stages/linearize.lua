@@ -380,6 +380,7 @@ function LinState:emit_stmt_While(node)
    self:emit_noop(node, true)
    self:emit_goto("do")
    self:register_label("break")
+   self:register_label("continue")
    self:leave_scope()
 end
 
@@ -393,6 +394,7 @@ function LinState:emit_stmt_Repeat(node)
    self:leave_scope()
    self:emit_cond_goto("do", node[2])
    self:register_label("break")
+   self:register_label("continue")
    self:leave_scope()
 end
 
@@ -416,6 +418,7 @@ function LinState:emit_stmt_Fornum(node)
    self:emit_noop(node, true)
    self:emit_goto("do")
    self:register_label("break")
+   self:register_label("continue")
    self:leave_scope()
 end
 
@@ -433,6 +436,7 @@ function LinState:emit_stmt_Forin(node)
    self:emit_noop(node, true)
    self:emit_goto("do")
    self:register_label("break")
+   self:register_label("continue")
    self:leave_scope()
 end
 
