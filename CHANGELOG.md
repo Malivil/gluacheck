@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Fork] - 2023-04-13
+- Add basic support for "continue" used in GLua
+
 ## [1.1.0] - 2022-12-19
 
 ### Features
