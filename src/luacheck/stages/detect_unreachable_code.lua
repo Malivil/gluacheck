@@ -7,6 +7,20 @@ stage.warnings = {
 
 local function noop_callback() end
 
+local function dump(o)
+   if type(o) == 'table' then
+      local s = '{ '
+      for k,v in pairs(o) do
+         if type(k) ~= 'number' then k = '"'..k..'"' end
+         s = s .. '['..k..'] = ' .. dump(v) .. ','
+      end
+      return s .. '} '
+   else
+      return tostring(o)
+   end
+end
+
+
 local function detect_unreachable_code(chstate, line)
    local reachable_indexes = {}
 
@@ -19,6 +33,7 @@ local function detect_unreachable_code(chstate, line)
    for item_index, item in ipairs(line.items) do
       if not reachable_indexes[item_index] then
          if item.node then
+            dump(item)
             chstate:warn_range(item.loop_end and "512" or "511", item.node)
             -- Mark all items reachable from the item just reported.
             line:walk(reachable_indexes, item_index, noop_callback)
