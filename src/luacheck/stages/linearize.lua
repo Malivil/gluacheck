@@ -48,7 +48,7 @@ local function warn_unused_label(chstate, label)
    })
 end
 
-local pseudo_labels = utils.array_to_set({"do", "else", "break", "end", "return"})
+local pseudo_labels = utils.array_to_set({"do", "else", "break", "continue", "end", "return"})
 
 local Line = utils.class()
 
@@ -242,6 +242,8 @@ function LinState:leave_scope()
          if not prev_scope or prev_scope.line ~= self.lines.top then
             if goto_.name == "break" then
                parser.syntax_error("'break' is not inside a loop", goto_.range)
+            elseif goto_.name == "continue" then
+               parser.syntax_error("'continue' is not inside a loop", goto_.range)
             else
                parser.syntax_error(("no visible label '%s'"):format(goto_.name), goto_.range)
             end
