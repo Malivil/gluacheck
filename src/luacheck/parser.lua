@@ -872,6 +872,13 @@ statements["break"] = function(state)
    return ast_node
 end
 
+statements["continue"] = function(state)
+   local ast_node = new_outer_node(state, "Continue")
+   -- Skip "continue".
+   skip_token(state)
+   return ast_node
+end
+
 statements["goto"] = function(state)
    local start_range = copy_range(state)
    -- Skip "goto".
